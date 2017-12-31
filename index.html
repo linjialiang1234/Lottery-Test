@@ -7,19 +7,14 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
-<body ng-app="mainApp" ng-controller="lotteryController as ctrl" ng-init="load()">
+<body ng-app="mainApp">
 
-    <div class="contianer">
-            <div class="main-container">
-                <input-list class="input-list" listarray="ctrl.inputLists" add-item="ctrl.addItem(name,percentage,color)"></input-list>
-                <output-list listarray="ctrl.inputLists" remove-item="ctrl.remove(index)"></output-list>
-                
-            </div>
-    </div>
-
+    <container class="contianer"></container>
+    
     <script src="mainApp.js"></script>
-    <script src="lotteryController.js"></script>
+    <script src="container.js"></script>
     <script src="inputList.js"></script>
     <script src="outputList.js"></script>
+    <script src="gameContainer.js"></script>
 </body>
 </html>
