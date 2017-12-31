@@ -1,3 +1,15 @@
+function outputListController($scope, $element, $attrs) {
+    var ctrl = this; 
+
+    ctrl.onRemoveItem = function() {
+        console.log("111:" + this.$index);
+        ctrl.removeItem({index:this.$index});
+
+    }
+
+
+}
+
 angular.module('mainApp').component("outputList",{
     template:`
     <div class="output-list">
@@ -5,13 +17,16 @@ angular.module('mainApp').component("outputList",{
             <span>{{list.name}}</span>
             <span>{{list.percentage}}</span>
             <span>{{list.color}}</span>
-            <button ng-click="remove()">Delete</button>
+            <button ng-click="$ctrl.onRemoveItem()">Delete</button>
         </div>
     </div>
 
     `,
+
+    controller: outputListController,
     bindings: {
-        listarray:'='
+        listarray:'=',
+        removeItem: '&'
 
     }
 })

@@ -2,11 +2,12 @@ angular.module('mainApp',[]).controller('lotteryController', function lotteryCon
     var ctrl = this;
     ctrl.inputLists = [];
 
-    $scope.addItem = function() {
+    ctrl.addItem = function(name, percentage, color) {
+        // console.log(name+percentage+color);
         ctrl.inputLists.push({
-            "name" :  $scope.name,
-            "percentage" : $scope.percentage,
-            "color" : $scope.color 
+            "name" :  name,
+            "percentage" : percentage,
+            "color" : color 
         });
 
         // this.abc = $scope.inputLists;
@@ -26,5 +27,9 @@ angular.module('mainApp',[]).controller('lotteryController', function lotteryCon
         // var elementLinkButton = document.getElementById("btn");
         // elementLinkButton.classList.remove("hidden-turntable");
     } 
+
+    ctrl.remove = function(index) {
+        ctrl.inputLists.splice(index,1);
+    }
 
 });
