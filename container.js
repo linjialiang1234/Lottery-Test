@@ -21,8 +21,8 @@ function containerController($scope, $element, $attrs) {
         // $scope.input
         // drawPieChart();
 
-        // showElement("turntable", "hidden-turntable");
-        // showElement("btn", "hidden-turntable");
+        showElement("turntable", "hidden-turntable");
+        showElement("btn", "hidden-turntable");
 
         // var elementTurnTable = document.getElementById("turntable");
         // elementTurnTable.classList.remove("hidden-turntable");
@@ -30,6 +30,13 @@ function containerController($scope, $element, $attrs) {
         // var elementLinkButton = document.getElementById("btn");
         // elementLinkButton.classList.remove("hidden-turntable");
     } 
+
+
+    showElement = function(idOfElement,classOfElement) {
+        var getElement = document.getElementById(idOfElement);
+        getElement.classList.remove(classOfElement);
+
+    }
 
     ctrl.remove = function(index) {
         ctrl.inputLists.splice(index,1);
@@ -171,7 +178,7 @@ angular.module('mainApp').component('container', {
     
     </div>
 
-    <game-container class="game-container" listarray="$ctrl.inputLists" pie-chart="$ctrl.rotatePieChart()"></game-container>
+    <game-container class="game-container" listarray="$ctrl.inputLists" pie-chart="$ctrl.rotatePieChart()" winner="$ctrl.winner"></game-container>
     
     `,
     controller: containerController,
