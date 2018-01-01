@@ -6,7 +6,6 @@ function gameContainerController($scope, $element, $attrs) {
 
     }
 
-
 }
 
 angular.module('mainApp').component("gameContainer",{
