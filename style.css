@@ -113,7 +113,7 @@
 .hidden-turntable{
     visibility: hidden;
 }
-#canvas{
+.canvas{
     -webkit-transform: all 6s ease;
     transition: all 6s ease;    
 }

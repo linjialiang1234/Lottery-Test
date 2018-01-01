@@ -10,6 +10,7 @@ function containerController($scope, $element, $attrs) {
             "color" : color 
         });
 
+
         ctrl.drawPieChart();
 
 
@@ -54,60 +55,114 @@ function containerController($scope, $element, $attrs) {
     }
 
     ctrl.drawPieChart = function() {
-        var num = ctrl.inputLists.length;
-        console.log("num " + num);
-        console.log("abc: " + ctrl.inputLists[0].color);
-        var canvas = document.getElementById('canvas');
-        var btn = document.getElementById('btn');
-        if(!canvas.getContext){
-            alert('Sorry, this browser do not support it.');
-            return;
+        d3.selectAll("svg").remove();
+        var width = 300;  
+        var height = 300;
+        var dataset = [];
+
+        for(var i = 0; i < ctrl.inputLists.length; i++) {
+            dataset.push(ctrl.inputLists[i].percentage);
+            
         }
-
-        console.log("canvas" + canvas);
-        console.log("btn" + btn);
-
-        totolRotateNumber = 0;
-
-        var ctx = canvas.getContext('2d');
-        for (var i = 0; i < num; i++) {
-            // save the current state
-            ctx.save();
-            // start to draw
-            ctx.beginPath();
-            // the center has been changed
-            ctx.translate(150, 150);
-            // from(0, 0) define a new route
-            ctx.moveTo(0, 0);
-            // uese formular degrees * Math.PI/180 to change degree into arc
-            // ctx.rotate((360 / num * i + 360 / num / 2) * Math.PI/180);
-            ctx.rotate((360 * (totolRotateNumber/ctrl.getAllInputPercentage())) * Math.PI/180);
-            totolRotateNumber += ctrl.inputLists[i].percentage;
-            // draw the arc
-            // ctx.arc(0, 0, 150, 0,  2 * Math.PI / num, false);
-            ctx.arc(0, 0, 150, 0,  2 * Math.PI *(ctrl.inputLists[i].percentage/ctrl.getAllInputPercentage()) , false);
-            // if (i % 2 == 0) {
-            //     ctx.fillStyle = '#ffb820';
-            // }else{
-            //     ctx.fillStyle = '#ffcb3f';
-            // }
-            ctx.fillStyle = ctrl.inputLists[i].color;
-            // fill the color
-            ctx.fill();
-            // draw outline
-            ctx.lineWidth = 0.5;
-            ctx.strokeStyle = 'whitesmoke';
-            ctx.stroke();
-    
-            // literal
-            // ctx.fillStyle = '#fff';
-            // ctx.font="16px sans-serif";
-            // ctx.fillText(i + 1, 100, 60);
-    
-            //restore previous state
-            ctx.restore();
-        }
+        // var dataset = [ 30 , 10 , 43 , 55 , 13 ];  
+          
+        var svg = d3.select(".canvas").append("svg")  
+                                .attr("width",width)  
+                                .attr("height",height);  
+          
+        var pie = d3.layout.pie().sort(null);  
+          
+        var outerRadius = width / 2;  
+        var innerRadius = width / 4;  
+        var arc = d3.svg.arc()  
+                        .innerRadius(innerRadius)  
+                        .outerRadius(outerRadius);  
+          
+        // var color = d3.scale.category10();  
+          
+        var arcs = svg.selectAll("g")  
+                      .data(pie(dataset))
+                      .enter()  
+                      .append("g")  
+                      .attr("transform","translate("+outerRadius+","+outerRadius+")");  
+                        
+        arcs.append("path")  
+            .attr("fill",function(d,i){  
+                // return color(i);
+                return ctrl.inputLists[i].color;
+            })  
+            .attr("d",function(d){  
+                return arc(d);  
+            });  
+          
+        arcs.append("text")  
+            .attr("transform",function(d){  
+                return "translate(" + arc.centroid(d) + ")";  
+            })  
+            .attr("text-anchor","middle")  
+            .text(function(d){  
+                return d.value;  
+            });  
+          
+        console.log(dataset);  
+        console.log(pie(dataset));  
+            
     }
+    // ctrl.drawPieChart = function() {
+    //     var num = ctrl.inputLists.length;
+    //     console.log("num " + num);
+    //     console.log("abc: " + ctrl.inputLists[0].color);
+    //     var canvas = document.getElementById('canvas');
+    //     var btn = document.getElementById('btn');
+    //     if(!canvas.getContext){
+    //         alert('Sorry, this browser do not support it.');
+    //         return;
+    //     }
+
+    //     console.log("canvas" + canvas);
+    //     console.log("btn" + btn);
+
+    //     totolRotateNumber = 0;
+
+    //     var ctx = canvas.getContext('2d');
+    //     for (var i = 0; i < num; i++) {
+    //         // save the current state
+    //         ctx.save();
+    //         // start to draw
+    //         ctx.beginPath();
+    //         // the center has been changed
+    //         ctx.translate(150, 150);
+    //         // from(0, 0) define a new route
+    //         ctx.moveTo(0, 0);
+    //         // uese formular degrees * Math.PI/180 to change degree into arc
+    //         // ctx.rotate((360 / num * i + 360 / num / 2) * Math.PI/180);
+    //         ctx.rotate((360 * (totolRotateNumber/ctrl.getAllInputPercentage())) * Math.PI/180);
+    //         totolRotateNumber += ctrl.inputLists[i].percentage;
+    //         // draw the arc
+    //         // ctx.arc(0, 0, 150, 0,  2 * Math.PI / num, false);
+    //         ctx.arc(0, 0, 150, 0,  2 * Math.PI *(ctrl.inputLists[i].percentage/ctrl.getAllInputPercentage()) , false);
+    //         // if (i % 2 == 0) {
+    //         //     ctx.fillStyle = '#ffb820';
+    //         // }else{
+    //         //     ctx.fillStyle = '#ffcb3f';
+    //         // }
+    //         ctx.fillStyle = ctrl.inputLists[i].color;
+    //         // fill the color
+    //         ctx.fill();
+    //         // draw outline
+    //         ctx.lineWidth = 0.5;
+    //         ctx.strokeStyle = 'whitesmoke';
+    //         ctx.stroke();
+    
+    //         // literal
+    //         // ctx.fillStyle = '#fff';
+    //         // ctx.font="16px sans-serif";
+    //         // ctx.fillText(i + 1, 100, 60);
+    
+    //         //restore previous state
+    //         ctx.restore();
+    //     }
+    // }
 
     var result = 0;
     var counter = 0;
@@ -115,6 +170,9 @@ function containerController($scope, $element, $attrs) {
         console.log("666");
         var element = document.getElementById("winner");
         element.classList.add("hidden-winner-text");
+
+         var canvas = document.getElementsByClassName("canvas")[0]
+
 
         if(counter === 0) {
             result = randomRotateDegree();
@@ -163,7 +221,7 @@ function containerController($scope, $element, $attrs) {
             return finalRoundRotateAngles;
         }
 
-        var totalRotateDegree = (3600 + 90 + 360 * (getFinalRoundRotateAngles()/ctrl.getAllInputPercentage()));
+        var totalRotateDegree = (3600 + 360 * (getFinalRoundRotateAngles()/ctrl.getAllInputPercentage()));
         console.log("123:   " + totalRotateDegree);
 
         return totalRotateDegree;

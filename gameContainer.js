@@ -11,9 +11,9 @@ function gameContainerController($scope, $element, $attrs) {
 
 angular.module('mainApp').component("gameContainer",{
     template:`
-    <div id="turntable">
-        <div class="turntable-content" class="hidden-turntable">
-            <canvas id="canvas" width="300" height="300">Sorry, this browser do not support it.</canvas>
+    <div id="turntable" class="hidden-turntable">
+        <div class="turntable-content" >
+            <div class="canvas"></div>
             <a id="btn" class="hidden-turntable" href="javascript:;" ng-click="$ctrl.onPieChart()">Go</a>
         </div>  
     </div>
