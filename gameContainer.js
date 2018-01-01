@@ -2,7 +2,7 @@ function gameContainerController($scope, $element, $attrs) {
     var ctrl = this; 
 
     ctrl.onPieChart = function() {
-        ctrl.pieChart({index:"123"});
+        ctrl.pieChart();
 
     }
 

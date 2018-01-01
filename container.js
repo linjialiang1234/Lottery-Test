@@ -104,7 +104,7 @@ function containerController($scope, $element, $attrs) {
 
     var result = 0;
     var counter = 0;
-    ctrl.rotatePieChart = function(index) {
+    ctrl.rotatePieChart = function() {
         console.log("666");
         var element = document.getElementById("winner");
         element.classList.add("hidden-winner-text");
@@ -171,7 +171,7 @@ angular.module('mainApp').component('container', {
     
     </div>
 
-    <game-container class="game-container" listarray="$ctrl.inputLists" pie-chart="$ctrl.rotatePieChart(index)"></game-container>
+    <game-container class="game-container" listarray="$ctrl.inputLists" pie-chart="$ctrl.rotatePieChart()"></game-container>
     
     `,
     controller: containerController,
