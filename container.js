@@ -79,6 +79,12 @@ function containerController($scope, $element, $attrs) {
                         .outerRadius(outerRadius);  
           
         // var color = d3.scale.category10();  
+
+        var tooltip = d3.select('body').append('div')
+        .style('position', 'absolute')
+        .style('padding','0 10px')
+        .style('background', 'white')
+        .style('opacity', 0)
           
         var arcs = svg.selectAll("g")  
                       .data(pie(dataset))
@@ -86,6 +92,14 @@ function containerController($scope, $element, $attrs) {
                       .append("g")  
                       .attr("transform","translate("+outerRadius+","+outerRadius+")")
                       .on('mouseover', function(d) {
+
+                        //   tooltip.transition()
+
+                          tooltip.html(d.data)
+                          .style('opacity', 1)
+                            .style('left', (d3.event.pageX) + 'px')
+                            .style('top', (d3.event.pageY) + 'px')
+
                           d3.select(this)
                           .transition()
                           .style('opacity', .5);
@@ -125,6 +139,8 @@ function containerController($scope, $element, $attrs) {
 
         console.log(dataset);  
         console.log(pie(dataset));  
+
+       
             
     }
   
