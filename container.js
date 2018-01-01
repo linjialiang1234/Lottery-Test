@@ -87,14 +87,25 @@ function containerController($scope, $element, $attrs) {
                       .attr("transform","translate("+outerRadius+","+outerRadius+")")
                       .on('mouseover', function(d) {
                           d3.select(this)
-                          .style('opacity', .5)
+                          .transition()
+                          .style('opacity', .5);
+
                       })
                       .on('mouseout', function(d) {
                           d3.select(this)
-                            .style('opacity', 1);
+                          .transition()
+                          .delay(1000)
+                          .duration(800)
+                          .style('opacity', 1);
                       });  
                         
-        arcs.append("path")  
+        arcs.append("path")
+            .transition()
+            .delay(function(d,i) {
+                return i * 1000;
+            })
+            .duration(3000)
+            .ease('elastic')
             .attr("fill",function(d,i){  
                 // return color(i);
                 return ctrl.inputLists[i].color;
@@ -110,8 +121,8 @@ function containerController($scope, $element, $attrs) {
             .attr("text-anchor","middle")  
             .text(function(d){  
                 return d.value;  
-            });  
-          
+            });
+
         console.log(dataset);  
         console.log(pie(dataset));  
             
