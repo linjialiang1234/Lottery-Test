@@ -70,6 +70,10 @@
     flex-basis: 40%;  
 }
 
+output-list {
+    display: flex;
+    justify-content: center;
+}
 .output-list{
     width: 50%;
     align-self: center;
@@ -119,28 +123,28 @@
 }
 #btn{
     position: absolute;
-    /* left: 213px; */
-    top: 120px;
-    width: 60px;
-    height: 60px;
+    left: 185px;
+    top: 95px;
+    width: 115px;
+    height: 115px;
     border-radius: 50%;
     background-color: #fff;
-    line-height: 60px;
+    line-height: 110px;
     text-align: center;
     text-decoration: none;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
 }
 #btn:after{
     position: absolute;
     display: block;
     content: '';
-    left: 10px;
-    top: -32px;
+    left: 20px;
+    top: -60px;
     width: 0;
     height: 0;
     overflow: hidden;
-    border-width: 20px;
+    border-width: 38px;
     border-style: solid;
     border-color: transparent;
     border-bottom-color: #fff; 

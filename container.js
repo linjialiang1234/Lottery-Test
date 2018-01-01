@@ -106,6 +106,7 @@ function containerController($scope, $element, $attrs) {
 
                       })
                       .on('mouseout', function(d) {
+                          
                           d3.select(this)
                           .transition()
                           .delay(1000)
